@@ -127,7 +127,11 @@ class Player {
    */
 
   checkPack() {
-    console.log(Player.getPack);
+    console.log(
+      `${
+        this.name
+      } currently has these items in the backpack: ${this.getPack().join(", ")}`
+    );
   }
 
   /**
@@ -192,7 +196,7 @@ class Player {
       return false;
     } else if (itemIndex >= 0) {
       this.getPack().splice(itemIndex, 1);
-      console.log(`Removed ${item}`);
+      console.log(`${this.name} has removed ${item} from pack.`);
       return true;
     }
   }
@@ -227,8 +231,8 @@ class Player {
         this.equipped = itemToEquip;
       } else {
         let currentWeapon = this.equipped;
-        this.getPack().push(currentWeapon);
         this.getPack().splice(itemIndex, 1);
+        this.getPack().push(currentWeapon);
         this.equipped = itemToEquip;
       }
     }
@@ -261,7 +265,7 @@ class Player {
       this.getPack().splice(itemIndex, 1);
       this.health += itemToEat.energy;
 
-      if (this.health >= 100) {
+      if (this.health >= this._maxHealth) {
         this.health = this.getMaxHealth();
       } else {
         this.health = this.health;
